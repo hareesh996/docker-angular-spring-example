@@ -1,0 +1,27 @@
+user-portal/target/
+user-portal/!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+user-portal/.apt_generated
+user-portal/.classpath
+user-portal/.factorypath
+user-portal/.project
+user-portal/.settings
+user-portal/.springBeans
+
+### IntelliJ IDEA ###
+user-portal/.idea
+user-portal/*.iws
+user-portal/*.iml
+user-portal/*.ipr
+
+### NetBeans ###
+user-portal//nbproject/private/
+user-portal/build/
+user-portal/nbbuild/
+user-portal/dist/
+user-portal/nbdist/
+user-portal/.nb-gradle/
+
+portal-app/node_modules
+portal-app/dist
