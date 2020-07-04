@@ -15,15 +15,13 @@
 #RUN mkdir app
 #COPY . /app/user-portal
 
-FROM maven:3.6-openjdk-8
+FROM maven:3.6-openjdk-8 as maven
 # all the maven projects would be copied into the maven folder.
-WORKDIR /app/maven/projects/user-portal
+WORKDIR opt/app/maven/projects/user-portal
 # exposing the port 8080
 EXPOSE 8080
-COPY . /app/maven/projects/user-portal
-# below one is needed to cache the dependency downloads.
-COPY settings.xml C:/ProgramData/Maven/Reference/
-RUN mvn -B -s C:/ProgramData/Maven/Reference/settings.xml clean package;
+COPY . opt/app/maven/projects/user-portal
+RUN mvn clean package;
 ARG version
 ENV artifact user-portal-${version}.jar
 COPY target/user-portal.jar /app/${artifact}.jar
