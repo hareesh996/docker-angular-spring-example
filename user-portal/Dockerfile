@@ -17,10 +17,12 @@
 
 FROM maven:3.6-openjdk-8 as maven
 # all the maven projects would be copied into the maven folder.
-WORKDIR opt/app/maven/projects/user-portal
+# WORKDIR opt/app/maven/projects/user-portal
+RUN pwd
 # exposing the port 8080
 EXPOSE 8080
 COPY ./user-portal opt/app/maven/projects/user-portal/
+WORKDIR opt/app/maven/projects/user-portal
 RUN mvn clean package;
 ARG version
 ENV artifact user-portal-${version}.jar

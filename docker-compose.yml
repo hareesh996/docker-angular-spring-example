@@ -18,14 +18,15 @@ services:
     restart: always
     container_name: user-portal-service
     build:
-      context: ./user-portal
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./user-portal/Dockerfile
     expose:
       - "8080"
     depends_on:
        - db
     networks:
       - user-app-network
+    command: sh -c './wait-for db:3306'
 
   nginx-angular:
     restart: always
