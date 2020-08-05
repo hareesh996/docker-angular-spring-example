@@ -21,8 +21,6 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-CMD dockerize -wait tcp://db:3306
-
 # all the maven projects would be copied into the maven folder.
 # WORKDIR opt/app/maven/projects/user-portal
 RUN pwd
@@ -34,4 +32,4 @@ RUN mvn clean package;
 ARG version
 ENV artifact user-portal-${version}.jar
 COPY target/user-portal.jar /app/${artifact}.jar
-ENTRYPOINT java -jar ${artifact}.jar
+CMD dockerize -wait tcp://db:3306 java -jar ${artifact}.jar
