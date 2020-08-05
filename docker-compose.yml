@@ -13,8 +13,6 @@ services:
       - "3306"
     networks:
       - user-app-network
-    healthcheck:
-      test: out=$$(mysqladmin ping -h localhost -P 3306 -u root --password=testdb 2>&1); echo $$out | grep 'mysqld is alive' || { echo $$out; exit 1; }
 
   user-portal-service:
     restart: always
@@ -25,8 +23,8 @@ services:
     expose:
       - "8080"
     depends_on:
-      db:
-      condition: service_healthy
+       - db
+    command: ["./wait-for-it.sh", "db:5432" ]
     networks:
       - user-app-network
     #command: sh -c './wait-for db:3306'
