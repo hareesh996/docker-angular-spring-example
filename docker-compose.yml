@@ -27,7 +27,7 @@ services:
     networks:
       - user-app-network
     #command: sh -c './wait-for db:3306'
-    health:
+    healthcheck:
       test: out=$$(mysqladmin ping -h localhost -P 3306 -u root --password=testdb 2>&1); echo $$out | grep 'mysqld is alive' || { echo $$out; exit 1; }
 
   nginx-angular:
