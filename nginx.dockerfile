@@ -3,7 +3,7 @@ COPY /portal-app/ opt/app/portal-app/
 WORKDIR opt/app/portal-app
 ENV PORT=4200
 RUN npm install
-RUN npm build
+RUN npm run build
 
 FROM nginx
 # copy the nginx configuration with proxy to the app server
