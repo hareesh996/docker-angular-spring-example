@@ -15,20 +15,20 @@ services:
       - user-app-network
     #command:  bash -c "/wait-for-it.sh -t 0 mysql:3306"
 
-  # user-portal-service:
-  #   restart: always
-  #   container_name: user-portal-service
-  #   build:
-  #     context: .
-  #     dockerfile: ./user-portal/Dockerfile
-  #   expose:
-  #     - "8080"
-  #   depends_on:
-  #      - db
-  #   #command: ["./wait-for-it.sh", "db:5432" ]
-  #   networks:
-  #     - user-app-network
-  #   command: ["/wait-for-it.sh", "db:8002", "--", "java", "-jar","target/user-portal.jar"]
+  user-portal-service:
+    restart: always
+    container_name: user-portal-service
+    build:
+      context: .
+      dockerfile: ./user-portal/Dockerfile
+    expose:
+      - "8080"
+    depends_on:
+       - db
+    #command: ["./wait-for-it.sh", "db:5432" ]
+    networks:
+      - user-app-network
+    command: ["/wait-for-it.sh", "db:3306", "--", "java", "-jar","target/user-portal.jar"]
     
 
   nginx-angular:

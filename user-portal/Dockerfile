@@ -21,8 +21,8 @@ FROM maven:3.6-openjdk-8 as maven
 RUN pwd
 # exposing the port 8080
 EXPOSE 8080
-COPY ./user-portal opt/app/maven/projects/user-portal/
-WORKDIR opt/app/maven/projects/user-portal
+COPY ./user-portal /user-portal
+WORKDIR /user-portal
 RUN mvn clean package -DskipTests;
 #CMD java -jar ${artifact}.jar
 COPY wait-for-it.sh /wait-for-it.sh
