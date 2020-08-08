@@ -24,6 +24,10 @@ EXPOSE 8080
 COPY ./user-portal /user-portal
 WORKDIR /user-portal
 RUN mvn clean package -DskipTests;
-#CMD java -jar ${artifact}.jar
-COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+ENV WAIT_VERSION 2.7.2
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
+RUN chmod +x /wait
+CMD ["java -jar /target/user-portal.jar"]
+#CMD java -jar target/user-portal.jar
+# COPY wait-for-it.sh /wait-for-it.sh
+# RUN chmod +x /wait-for-it.sh
