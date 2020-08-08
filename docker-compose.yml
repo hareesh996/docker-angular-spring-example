@@ -28,7 +28,7 @@ services:
     #command: ["./wait-for-it.sh", "db:5432" ]
     networks:
       - user-app-network
-    command: ["/wait-for-it.sh", "db:8002", "--", "npm", "start"]
+    command: ["/wait-for-it.sh", "db:8002", "--", "java", "-jar","target/user-portal.jar"]
     
 
   nginx-angular:
