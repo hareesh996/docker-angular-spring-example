@@ -16,11 +16,6 @@
 #COPY . /app/user-portal
 FROM maven:3.6-openjdk-8 as maven
 
-ENV DOCKERIZE_VERSION v0.6.0
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-
 # all the maven projects would be copied into the maven folder.
 # WORKDIR opt/app/maven/projects/user-portal
 RUN pwd
@@ -28,8 +23,10 @@ RUN pwd
 EXPOSE 8080
 COPY ./user-portal opt/app/maven/projects/user-portal/
 WORKDIR opt/app/maven/projects/user-portal
-RUN mvn clean package;
+RUN mvn clean package -DskipTests;
 ARG version
 ENV artifact user-portal-${version}.jar
 COPY target/user-portal.jar /app/${artifact}.jar
-CMD dockerize -wait tcp://db:3306 java -jar ${artifact}.jar
+#CMD java -jar ${artifact}.jar
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
