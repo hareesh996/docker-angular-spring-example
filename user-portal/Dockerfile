@@ -24,9 +24,6 @@ EXPOSE 8080
 COPY ./user-portal opt/app/maven/projects/user-portal/
 WORKDIR opt/app/maven/projects/user-portal
 RUN mvn clean package -DskipTests;
-ARG version
-ENV artifact user-portal-${version}.jar
-COPY target/user-portal.jar /app/${artifact}.jar
 #CMD java -jar ${artifact}.jar
 COPY wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
