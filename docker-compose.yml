@@ -35,9 +35,11 @@ services:
       - WAIT_HOSTS_TIMEOUT=300
       - WAIT_SLEEP_INTERVAL=30
       - WAIT_HOST_CONNECT_TIMEOUT=30
+   image: hareesh996/user-portal-service 
 
   nginx-angular:
     restart: always
+    container_name: user-portal-ui
     build:
       context: .
       dockerfile: nginx.dockerfile
@@ -47,6 +49,7 @@ services:
       - "8080:8080"
     networks:
       - user-app-network
+    image: hareesh996/user-portal-ui
 
 networks:
   user-app-network:
